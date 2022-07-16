@@ -26,7 +26,7 @@ async def weather(
     prefecture: Option(str, required=True, description="都道府県を入力(-県)"),
     date: Option(str,required = False,description="天気を取得する日(更新5:00)",choices=["今日","明日","明後日"])
 ):  
-
+    await ctx.defer()
     if date == None:
         date = "今日"
 
@@ -40,7 +40,7 @@ async def weather(
     else:
         weather = attachments.JMAWeatherEmbed(prefecture,pref_code,date)
         paginator = pages.Paginator(pages = weather)
-        await paginator.respond(ctx.interaction, ephemeral=False)
+        await paginator.respond(ctx.interaction)
 
 
 bot.run(TOKEN)
